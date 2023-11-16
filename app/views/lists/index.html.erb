@@ -1,0 +1,52 @@
+<%= render 'lists/navbar' %>
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
+  <div class="container">
+    <h1>Save any kind of movies</h1>
+    <p>Classic</p>
+  </div>
+</div>
+<div class="container">
+  <div class="d-flex flex-direction-column justify-content-between my-3">
+      <h2 style='margin: 0;'>My lists</h2>
+    <div class='d-flex'>
+      <%= form_with url: lists_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query, params[:query], class: "form-control mx-2" %>
+      <%= submit_tag "search lists", class: 'btn btn-outline-success my-2 my-sm-0 mx-2' %>
+      <% end %>
+     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Create new list
+    </button>
+    </div>
+
+  </div>
+  <div class="cards">
+  <% @lists.each do |list| %>
+    <%= link_to list_path(list) do %>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%=list.image_url%>)">
+        <%= list.name %>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Create a list</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class='p-3'>
+      <%= simple_form_for(@list) do |f| %>
+      <%= f.input :name %>
+      <%= f.input :image_url %>
+      <%= f.submit 'create list', class: 'btn btn-success' %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
