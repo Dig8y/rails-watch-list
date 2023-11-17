@@ -1,5 +1,7 @@
 <%= render 'lists/navbar' %>
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%=@list.image_url%>);">
+<% @image = @list.image_url if @list.image_url %>
+<% @image = (cl_image_path @list.photo.key) if @list.photo.attached? %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%=@image%>);">
   <div class="container">
     <h1><%= @list.name %></h1>
   </div>
@@ -13,7 +15,7 @@
     </button>
   </div>
 
-  <div class="card-bookmarks mb-4">
+  <div class="card-bookmarks mb-5 border-bottom">
     <% @list.bookmarks.each do |bookmark|%>
       <div class="card-bookmark">
         <div style="background-image: url('<%= bookmark.movie.poster_url%>')" class='bookmark-img'></div>
@@ -36,17 +38,19 @@
     <% end %>
   </div>
 
-  <div class="footer border-top">
-    <div>
-    <ul>
+  <div class="footer">
+    <div class="review-comments">
+      <h2>Reviews</h2>
       <% @list.reviews.each do |review| %>
-        <li><%= review.comment %></li>
+        <div class='review-comment'>
+          <p><%= content_tag :p, '⭐️' * review.rating %></p>
+          <h4><%= review.comment %></h4>
+        </div>
       <% end %>
-    </ul>
     </div>
-    <div>
+    <div class="review-form">
      <%= simple_form_for [@list, @review] do |f|%>
-      <%= f.input :rating, :collection => (0..5).to_a %>
+      <%= f.input :rating, :collection => (0..5).to_a, input_html: {data: {controller: "star-rating"}}  %>
       <%= f.input :comment %>
       <%= f.submit 'Add review', class: 'btn btn-success' %>
       <% end %>

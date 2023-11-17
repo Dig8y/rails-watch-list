@@ -3,5 +3,6 @@ class List < ApplicationRecord
   has_many :movies, through: :bookmarks
   has_many :reviews, dependent: :destroy
   validates :name, uniqueness: true
-  validates :name, :image_url, presence: true
+  validates :name, presence: true
+  has_one_attached :photo
 end

@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 16px;
+  grid-column-gap: 30px;
   padding: 16px 0px;
   i {
     color: $red;
