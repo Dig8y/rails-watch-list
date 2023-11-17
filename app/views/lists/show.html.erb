@@ -50,7 +50,7 @@
     </div>
     <div class="review-form">
      <%= simple_form_for [@list, @review] do |f|%>
-      <%= f.input :rating, :collection => (0..5).to_a, input_html: {data: {controller: "star-rating"}}  %>
+      <%= f.input :rating, :collection => (0..5).to_a, input_html: {data: { controller: "star-rating", action: "click->form-submit#submit"} } %>
       <%= f.input :comment %>
       <%= f.submit 'Add review', class: 'btn btn-success' %>
       <% end %>
@@ -70,7 +70,7 @@
       </div>
       <div class='p-3'>
       <%= simple_form_for [@list, @bookmark] do |f|%>
-      <%= f.association :movie, collection: Movie.all.order(:title), label_method: :title, value_method: :id, prompt: "Choose a movie" %>
+      <%= f.input :movie_id, collection: Movie.all.order(:title), input_html: {data: {controller: "tom-select"}} %>
       <%= f.input :comment %>
       <%= f.submit 'Add movie', class: 'btn btn-success' %>
       <% end %>

@@ -1,9 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
-import StarRating from "star-rating.js"
+import TomSelect from "tom-select";
 
 export default class extends Controller {
   connect() {
-    console.log("Tom Select");
-    new StarRating(this.element)
+    new TomSelect(this.element)
   }
 }

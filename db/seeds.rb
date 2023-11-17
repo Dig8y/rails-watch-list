@@ -12,7 +12,10 @@ require "open-uri"
 
 
 puts 'clearing db'
+Bookmark.destroy_all
+List.destroy_all
 Movie.destroy_all
+Review.destroy_all
 
 puts 'generating movies'
 url = 'http://tmdb.lewagon.com/movie/top_rated'
@@ -21,7 +24,7 @@ response = JSON.parse(user_serialized)
 
 movies = response['results']
 
-movies.take(8).each do |movie|
+movies.each do |movie|
   Movie.create(
     title: movie['title'],
     overview: movie['overview'],
