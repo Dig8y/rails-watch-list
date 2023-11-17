@@ -13,6 +13,7 @@ class ListsController < ApplicationController
   def show
     set_list
     @bookmark = Bookmark.new
+    @review = Review.new
   end
 
   def create

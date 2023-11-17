@@ -13,10 +13,10 @@
     </button>
   </div>
 
-  <div class="card-bookmarks">
+  <div class="card-bookmarks mb-4">
     <% @list.bookmarks.each do |bookmark|%>
       <div class="card-bookmark">
-        <div class='bookmark-img' style="background-image: url('<%= bookmark.movie.poster_url%>')"></div>
+        <div style="background-image: url('<%= bookmark.movie.poster_url%>')" class='bookmark-img'></div>
           <div class='bookmark-text'>
           <div>
               <div class='bookmark-title-rating'>
@@ -34,6 +34,23 @@
           </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="footer border-top">
+    <div>
+    <ul>
+      <% @list.reviews.each do |review| %>
+        <li><%= review.comment %></li>
+      <% end %>
+    </ul>
+    </div>
+    <div>
+     <%= simple_form_for [@list, @review] do |f|%>
+      <%= f.input :rating, :collection => (0..5).to_a %>
+      <%= f.input :comment %>
+      <%= f.submit 'Add review', class: 'btn btn-success' %>
+      <% end %>
+    </div>
   </div>
 </div>
 
